@@ -15,7 +15,7 @@ options = {:usr => nil,
            :pw => nil,
            :api => 'https://github.com/api/v3',
            :web => 'https://github.com/',
-           :enterprise => true,
+           :enterprise => false,
            :space => nil,
            :gitlab_api => 'http://gitlab.example.com/api/v3',
            :gitlab_token => 'secret'
