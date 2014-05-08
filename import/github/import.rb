@@ -184,6 +184,7 @@ Dir.mktmpdir do |tmpdir|
         wiki_repo.add_remote('gitlab', gl_wiki_url)
         wiki_repo.push('gitlab')
       rescue
+        # Nothing to do (i.e. cloning of the wiki failed so we can skip it)
       end
     end
 
