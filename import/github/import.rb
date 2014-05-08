@@ -24,25 +24,32 @@ options = {:usr => 'sloede',
            :repo => nil
            }
 optparse = OptionParser.new do |opts|
-  opts.on('-u', '--user USER', "User to connect to GitHub with") do |u|
+  opts.on('-u', '--user USER',
+          'User to connect to GitHub with (default: #{options[:usr]})') do |u|
     options[:usr] = u
   end
-  opts.on('-p', '--pw PASSWORD', 'Password for user to connect to GitHub with') do |p|
+  opts.on('-p', '--pw PASSWORD',
+          'Password for user to connect to GitHub with (default: #{options[:pw]})') do |p|
     options[:pw] = p
   end
-  opts.on('--api', 'API endpoint for GitHub') do |a|
+  opts.on('-a', '--api',
+          'API endpoint for GitHub (default: #{options[:api]})') do |a|
     options[:api] = a
   end
-  opts.on('--web', 'Web endpoint for GitHub') do |w|
+  opts.on('-w', '--web',
+          'Web endpoint for GitHub (default: #{options[:web]})') do |w|
     options[:web] = w
   end
-  opts.on('-s', '--space SPACE', 'The space to import repositories from (User or Organization)') do |s|
+  opts.on('-s', '--space SPACE',
+          'The space to import repositories from (user or organization) (default: #{options[:enterprise]})') do |s|
     options[:space] = s
   end
-  opts.on('-r', '--repo REPO', 'The repository to import (default: all)') do |r|
+  opts.on('-r', '--repo REPO',
+          'The repository to import (default: all)') do |r|
     options[:repo] = r
   end
-  opts.on('-h', '--help', 'Display this screen') do
+  opts.on('-h', '--help',
+          'Display this screen') do
     puts opts
     exit
   end
