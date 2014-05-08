@@ -1,5 +1,5 @@
-# #!/usr/bin/env ruby
-#
+#!/usr/bin/env ruby
+
 # Community contributed script to import from GitHub to GitLab
 # It imports repositories, issues and the wiki's.
 # This script is not maintained, please send merge requests to improve it, do not file bugs.
