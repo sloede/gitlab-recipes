@@ -2,8 +2,9 @@
 
 # Community contributed script to import from GitHub to GitLab
 # It imports repositories, issues and the wiki's.
-# This script is not maintained, please send merge requests to improve it, do not file bugs.
-# The issue import might concatenate all comments of an issue into one, if so feel free to fix this.
+# This script is not maintained, please send merge requests to improve it, do
+# not file bugs.  The issue import might concatenate all comments of an issue
+# into one, if so feel free to fix this.
 
 require 'bundler/setup'
 require 'octokit'
@@ -130,7 +131,8 @@ Dir.mktmpdir do |tmpdir|
       push_group = gl_client.create_group(options[:space], options[:space])
     end
 
-    #edge case, gitlab didn't like names that didn't start with an alpha. Can't remember how I ran into this.
+    #edge case, gitlab didn't like names that didn't start with an alpha.
+    #Can't remember how I ran into this.
     name = gh_r.name
     if gh_r.name !~ /^[a-zA-Z]/
       name = "gh-#{gh_r.name}"
@@ -143,7 +145,8 @@ Dir.mktmpdir do |tmpdir|
 
     #
     ## Look for issues in GitHub for this project and push them to GitLab
-    ## I wish the GitLab API let me create comments for issues. Oh well, smashing it all into the body of the issue.
+    ## I wish the GitLab API let me create comments for issues. Oh well,
+    ## smashing it all into the body of the issue.
     #
     if gh_r.has_issues
       issues = gh_client.issues(gh_r.full_name)
@@ -164,13 +167,15 @@ Dir.mktmpdir do |tmpdir|
     ## Look for wiki pages for this repo in GitHub and migrate them to GitLab
     #
     if gh_r.has_wiki
-      #this is dumb. The only way to know if a repo has a wiki is to attempt to clone it and then ignore failure if it doesn't have one
+      #this is dumb. The only way to know if a repo has a wiki is to attempt to
+      #clone it and then ignore failure if it doesn't have one
       begin
         gh_wiki_url = gh_r.git_url.gsub(/\.git/, ".wiki.git")
         wiki_name = gh_r.name + '.wiki'
         wiki_repo = Git.clone(gh_wiki_url, wiki_name, :path => tmpdir)
 
-        #this is a pain, have to visit the wiki page on the web ui before being able to work with it as a git repo
+        #this is a pain, have to visit the wiki page on the web ui before being
+        #able to work with it as a git repo
         `wget -q --save-cookies #{junkdir}/gl_login.txt -P #{junkdir} --post-data "username=#{options[:usr]}&password=#{options[:pw]}" gitlab.example.com/users/auth/ldap/callback`
         `wget -q --load-cookies #{junkdir}/gl_login.txt -P #{junkdir} -p #{new_project.web_url}/wikis/home`
         `rm -fr #{junkdir}/*`
