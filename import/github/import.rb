@@ -1,3 +1,5 @@
+# #!/usr/bin/env ruby
+#
 # Community contributed script to import from GitHub to GitLab
 # It imports repositories, issues and the wiki's.
 # This script is not maintained, please send merge requests to improve it, do not file bugs.
@@ -11,8 +13,8 @@ require 'gitlab'
 require 'pp'
 
 #deal with options from cli, like username and pw
-options = {:usr => nil,
-           :pw => nil,
+options = {:usr => 'sloede',
+           :pw => 'Vrog+=38t',
            :api => 'https://github.com/api/v3',
            :web => 'https://github.com/',
            :enterprise => false,
