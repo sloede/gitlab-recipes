@@ -14,8 +14,8 @@ require 'gitlab'
 require 'pp'
 
 #deal with options from cli, like username and pw
-options = {:usr => 'sloede',
-           :pw => 'Vrog+=38t',
+options = {:usr => nil,
+           :pw => nil,
            :api => 'https://github.com/api/v3',
            :web => 'https://github.com/',
            :enterprise => false,
