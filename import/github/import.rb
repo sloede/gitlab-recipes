@@ -159,7 +159,6 @@ Dir.mktmpdir do |tmpdir|
         gl_issue = gl_client.create_issue(new_project.id, i.title, :description => body)
       end
     end
-    u
 
     #
     ## Look for wiki pages for this repo in GitHub and migrate them to GitLab
