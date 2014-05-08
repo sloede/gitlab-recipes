@@ -57,7 +57,7 @@ end
 
 optparse.parse!
 if options[:usr].nil? or options[:pw].nil?
-  puts "Missing parameter ..."
+  puts "Missing parameter (username and/or password)"
   puts options
   exit
 end
@@ -77,28 +77,29 @@ Gitlab.configure do |c|
 end
 
 #setup the clients
-gh_client = Octokit::Client.new(:login => options[:usr], :password => options[:pw])
+gh_client = Octokit::Client.new(:login => options[:usr],
+                                :password => options[:pw])
 gl_client = Gitlab.client()
 
 # Create temporary directory
 Dir.mktmpdir do |tmpdir|
   # Create subdirectories
-  junkdir = "#{tmpdir}/junk"
   clonedir = "#{tmpdir}/clones"
+  junkdir = "#{tmpdir}/junk"
   Dir.mkdir(clonedir)
   Dir.mkdir(junkdir)
 
-  #get all of the repos that are in the specified space (user or org)
+  # Get all of the repos that are in the specified space (user or org)
   gh_repos = gh_client.repositories(options[:space])
   gh_repos.each do |gh_r|
     #
     # If repo was specified on command line, do not process any other repos
     #
-    if (!options[:repo].nil? and gh_r.name != options[:repo] )
+    if (!options[:repo].nil? and gh_r.name != options[:repo])
       puts "Skipping #{gh_r.name}."
       next
     end
-    puts "Importing #{gh_r.name}... "
+    print "Importing #{gh_r.name}... "
 
     #
     ## clone the repo from the GitHub server
@@ -135,7 +136,6 @@ Dir.mktmpdir do |tmpdir|
       name = "gh-#{gh_r.name}"
     end
 
-    puts gh_r.name
     #create and push the project to GitLab
     new_project = gl_client.create_project(name)
     git_repo.add_remote("gitlab", new_project.ssh_url_to_repo)
@@ -185,5 +185,8 @@ Dir.mktmpdir do |tmpdir|
 
     # change the owner of this new project to the group we found it in
     gl_client.transfer_project_to_group(push_group.id, new_project.id)
+
+    # Inform user that we are finished with the current repo
+    puts "done."
   end
 end
