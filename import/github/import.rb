@@ -92,12 +92,17 @@ Dir.mktmpdir do |tmpdir|
 
   # Get all of the repos that are in the specified space (user or org)
   gh_repos = gh_client.repositories(options[:space])
+  puts "The following repositories were found on GitHub in '#{options[:space]}':"
+  gh_repos.each do |gh_r|
+    puts "  - #{gh_r.name}"
+  end
+  puts
+
   gh_repos.each do |gh_r|
     #
     # If repo was specified on command line, do not process any other repos
     #
-    if (!options[:repo].nil? and gh_r.name != options[:repo])
-      puts "Skipping #{gh_r.name}."
+    if (options[:repo] and gh_r.name != options[:repo])
       next
     end
     print "Importing #{gh_r.name}... "
