@@ -14,43 +14,43 @@ require 'gitlab'
 require 'pp'
 
 #deal with options from cli, like username and pw
-options = {:usr => nil,
-           :pw => nil,
+options = {:usr => 'sloede',
+           :pw => 'Blubb33',
            :api => 'https://github.com/api/v3',
            :web => 'https://github.com/',
            :enterprise => false,
-           :space => nil,
-           :gitlab_api => 'http://gitlab.github.com/api/v3',
-           :gitlab_token => 'secret',
+           :space => 'sloede',
+           :gitlab_api => 'http://gitlab.sloede.com/api/v3',
+           :gitlab_token => '5s1eBSqnuyhJLhqcs5RN',
            :repo => nil
            }
 optparse = OptionParser.new do |opts|
   opts.on('-u', '--user USER',
-          'User to connect to GitHub with (default: #{options[:usr]})') do |u|
+          "User to connect to GitHub with (default: #{options[:usr]})") do |u|
     options[:usr] = u
   end
   opts.on('-p', '--pw PASSWORD',
-          'Password for user to connect to GitHub with (default: #{options[:pw]})') do |p|
+          "Password for user to connect to GitHub with (default: #{options[:pw]})") do |p|
     options[:pw] = p
   end
   opts.on('-a', '--api',
-          'API endpoint for GitHub (default: #{options[:api]})') do |a|
+          "API endpoint for GitHub (default: #{options[:api]})") do |a|
     options[:api] = a
   end
   opts.on('-w', '--web',
-          'Web endpoint for GitHub (default: #{options[:web]})') do |w|
+          "Web endpoint for GitHub (default: #{options[:web]})") do |w|
     options[:web] = w
   end
   opts.on('-s', '--space SPACE',
-          'The space to import repositories from (user or organization) (default: #{options[:enterprise]})') do |s|
+          "The space to import repositories from (user or organization) (default: #{options[:enterprise]})") do |s|
     options[:space] = s
   end
   opts.on('-r', '--repo REPO',
-          'The repository to import (default: all)') do |r|
+          "The repository to import (default: all)") do |r|
     options[:repo] = r
   end
   opts.on('-h', '--help',
-          'Display this screen') do
+          "Display this screen") do
     puts opts
     exit
   end
